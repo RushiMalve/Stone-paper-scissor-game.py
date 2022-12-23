@@ -1,0 +1,147 @@
+import cv2
+from cvzone.HandTrackingModule import HandDetector
+import random
+import pyttsx3
+from time import sleep
+
+detector=HandDetector(detectionCon=0.9, maxHands=2)
+video = cv2.VideoCapture(0)
+
+while True:
+    ret, frame = video.read()
+    hands, img = detector.findHands(frame)
+    cv2.rectangle(img, (0,480), (170,425), (50,60,225), -2)
+    cv2.rectangle(img, (640, 480), (400, 425), (50, 50, 225), -2)
+    if hands:
+
+        choices = ["1", "2", "3"]
+        computer = random.choice(choices)
+        player = None
+        print("1.rock, 2.paper, 3.scissors")
+        '''engine = pyttsx3.init()
+        engine.say("Enter 1 for rock; 2 for paper; and 3 for scissors")
+        engine.runAndWait()
+        engine.stop()'''
+        lmList = hands[0]
+        fingerUp=detector.fingersUp(lmList)
+
+        if fingerUp==[0, 0, 0, 0, 0]:
+            player = "1"
+            if computer == "1":
+                print("computer:", computer)
+                print("player:", player)
+                print("Match tie!")
+                #cv2.waitKey(1)
+                cv2.putText(frame, "Rock", (20, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 1, cv2.LINE_AA)
+                cv2.putText(frame, 'Match Tie', (440, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 253), 1, cv2.LINE_AA)
+                '''engine = pyttsx3.init()
+                engine.say("Match tie!")
+                engine.runAndWait()
+                engine.stop()'''
+            if computer == "2":
+                print("computer:", computer)
+                print("player:", player)
+                print("u lose!")
+                #cv2.waitKey(1)
+                cv2.putText(frame, "Rock", (20, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 1, cv2.LINE_AA)
+                cv2.putText(frame, 'U lose', (440, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 253), 1, cv2.LINE_AA)
+                '''engine = pyttsx3.init()
+                engine.say("you lose!")
+                engine.runAndWait()
+                engine.stop()'''
+            if computer == "3":
+                print("computer:", computer)
+                print("player:", player)
+                print("u win!")
+                #cv2.waitKey(1)
+                cv2.putText(frame, "Rock", (20, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 1, cv2.LINE_AA)
+                cv2.putText(frame, 'you win!', (440, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 253), 1, cv2.LINE_AA)
+                '''engine = pyttsx3.init()
+                engine.say("you win!")
+                engine.runAndWait()
+                engine.stop()'''
+            #sleep(2)
+
+
+
+        if fingerUp == [1, 1, 1, 1, 1]:
+            player = "2"
+            if computer == "1":
+                print("computer:", computer)
+                print("player:", player)
+                print("u win!")
+                cv2.putText(frame, "paper", (20, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 1, cv2.LINE_AA)
+                cv2.putText(frame, 'you win!', (440, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 253), 1, cv2.LINE_AA)
+                #cv2.waitKey(1)
+                '''engine = pyttsx3.init()
+                engine.say("you win!")
+                engine.runAndWait()
+                engine.stop()'''
+            if computer == "2":
+                print("computer:", computer)
+                print("player:", player)
+                print("Match tie!")
+                cv2.putText(frame, "paper", (20, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 1, cv2.LINE_AA)
+                cv2.putText(frame, 'Match Tie', (440, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 253), 1, cv2.LINE_AA)
+                #cv2.waitKey(1)
+                '''engine = pyttsx3.init()
+                engine.say("Match tie!")
+                engine.runAndWait()
+                engine.stop()'''
+            if computer == "3":
+                print("computer:", computer)
+                print("player:", player)
+                print("u lose!")
+                #cv2.waitKey(1)
+                cv2.putText(frame, "paper", (20, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 1, cv2.LINE_AA)
+                cv2.putText(frame, 'you lose!', (440, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 253), 1, cv2.LINE_AA)
+                '''engine = pyttsx3.init()
+                engine.say("you lose!")
+                engine.runAndWait()
+                engine.stop()'''
+            #sleep(2)
+
+        if fingerUp == [0, 1, 1, 0, 0]:
+            player="3"
+            if computer == "1":
+                print("computer:", computer)
+                print("player:", player)
+                print("u lose!")
+                #cv2.waitKey(1)
+                cv2.putText(frame, 'Scissors', (20, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 253), 1, cv2.LINE_AA)
+                cv2.putText(frame, 'you lose!', (440, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 253), 1, cv2.LINE_AA)
+                '''engine = pyttsx3.init()
+                engine.say("you lose!")
+                engine.runAndWait()
+                engine.stop()'''
+            if computer == "2":
+                print("computer:", computer)
+                print("player:", player)
+                print("u win!")
+                cv2.putText(frame, 'Scissors', (20, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 253), 1, cv2.LINE_AA)
+                cv2.putText(frame, 'you win!', (440, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 253), 1, cv2.LINE_AA)
+                #cv2.waitKey(1)
+                '''engine = pyttsx3.init()
+                engine.say("you win!")
+                engine.runAndWait()
+                engine.stop()'''
+            if computer == "3":
+                print("computer:", computer)
+                print("player:", player)
+                print("Match tie!")
+                cv2.putText(frame, 'Scissors', (20, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 253), 1, cv2.LINE_AA)
+                cv2.putText(frame, 'Match tie!', (440, 460), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 253), 1, cv2.LINE_AA)
+                #cv2.waitKey(1)
+                '''engine = pyttsx3.init()
+                engine.say("Match tie!")
+                engine.runAndWait()
+                engine.stop()'''
+            #sleep(2)
+
+    cv2.imshow("Frame", frame)
+    k=cv2.waitKey(1)
+    if k==ord('q'):
+        break
+
+video.release()
+cv2.destroyAllWindow()
